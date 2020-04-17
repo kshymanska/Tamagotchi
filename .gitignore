@@ -1,0 +1,4 @@
+# My ignored files
+.idea/
+*.iml
+target/
