@@ -2,16 +2,30 @@ package MyApp;
 
 public abstract class Animal {
 
-    protected String name;
-    protected static String animalType;
+    private String name;
+    private String gender;
+    protected int energy;
+    protected boolean isHungry;
 
-//    public void eat() {
-//
-//    }
-//    public abstract void sleep();
-//    public abstract void walk();
-//    public abstract void voice();
-    public static void allActions() {
-        System.out.println("Кушать, Спать, Гулять, Голос");
+    public Animal() {
+        energy = 100;
+        isHungry = true;
     }
+
+    // Name set, get
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getName() {
+        return this.name;
+    }
+
+    // Gender set, get
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+    public abstract String getGender();
+
+    public abstract void eat();
+    public abstract void sleep();
 }
