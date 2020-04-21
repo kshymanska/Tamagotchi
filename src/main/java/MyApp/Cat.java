@@ -2,26 +2,21 @@ package MyApp;
 
 public class Cat extends Animal {
 
-    public String getGender() {
-        if (getGender().equals("М")) {
-            return "Кот";
-        } else {
-            return "Кошка";
-        }
-    }
-
-
     public void eat() {
-        System.out.println("Кот кушает кошачий корм...");
+        System.out.println("Cat is eating...");
+        System.out.println("Cat is full-fed!");
+        isHungry = false;
         energy -= 80;
-        System.out.println("Кот сыт! И его энергия теперь: " + energy + "%. Помоему пора немного поспать:)");
-
+        incrementAge();
+        energyStatus();
     }
 
     public void sleep() {
-        System.out.println("Кот спит и сладко посапывает...");
+        System.out.println("Cat is sleeping...");
         energy = 100;
-        System.out.println("Энергия восстановлена на " + energy + "%");
+        System.out.println("Energy restored to " + energy + "%");
+        incrementAge();
+        App.performAction(App.getAction());
     }
 
 }

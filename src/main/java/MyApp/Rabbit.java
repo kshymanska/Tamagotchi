@@ -2,23 +2,20 @@ package MyApp;
 
 public class Rabbit extends Animal {
 
-    public String getGender() {
-        if (getGender().equals("М")) {
-            return "Кролик";
-        } else {
-            return "Крольчиха";
-        }
-    }
-
     public void eat() {
-        System.out.println("Кролик кушает специальный корм для кроликов...");
+        System.out.println("Rabbit is eating...");
+        System.out.println("Rabbit is full-fed! And it's energy now is: " + energy + "%. It's enough energy to jump a bit:)");
+        isHungry = false;
         energy -= 40;
-        System.out.println("Кролик сыт! И его энергия теперь: " + energy + "%. Можно еще немного попрыгать:)");
+        incrementAge();
+        energyStatus();
     }
 
     public void sleep() {
-        System.out.println("Кролик спит...");
+        System.out.println("Rabbit is sleeping...");
         energy = 100;
-        System.out.println("Энергия восстановлена на " + energy + "%");
+        System.out.println("Energy is restored to " + energy + "%");
+        incrementAge();
+        App.performAction(App.getAction());
     }
 }
