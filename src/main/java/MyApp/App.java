@@ -11,12 +11,15 @@ public class App {
     public static void main(String[] args) {
 
         // Choose an animal
-        System.out.println("Choose a pet (Cat, Dog, Pig, Rabbit):");
+        System.out.println("Choose a pet (Cat, Dog, Mouse, Rabbit):");
         createAnimal(getAnimal());
 
         // Choose a name
         System.out.println("Give your pet a name:");
         userAnimal.setName(userInput.next());
+
+        //Choose a color
+        System.out.println("Which is your pet color? (White - w, Grey - g, Black - b):");
 
         // Animal is created + info messages for user (energy, isHungry)
         System.out.println("Your pet is a " + userAnimalString.toLowerCase() + " and it's name is " + userAnimal.getName());
@@ -30,7 +33,7 @@ public class App {
     public static String getAnimal() {
         if(userInput.hasNext("Cat")
             || userInput.hasNext("Dog")
-            || userInput.hasNext("Pig")
+            || userInput.hasNext("Mouse")
             || userInput.hasNext("Rabbit")){
             userAnimalString = userInput.next();
         } else {
@@ -47,8 +50,8 @@ public class App {
             userAnimal = new Cat();
         } else if (animal.equals("Dog")) {
             userAnimal = new Dog();
-        } else if (animal.equals("Pig")) {
-            userAnimal = new Pig();
+        } else if (animal.equals("Mouse")) {
+            userAnimal = new Mouse();
         } else if (animal.equals("Rabbit")) {
             userAnimal = new Rabbit();
         }

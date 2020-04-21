@@ -1,10 +1,10 @@
 package MyApp;
 
-public class Pig extends Animal {
+public class Mouse extends Animal {
 
     public void eat() {
-        System.out.println("Pig is eating...");
-        System.out.println("Pig is full-fed! And it's energy now is: " + energy + "%. Needs to sleep, to start growing a fat:)");
+        System.out.println("Mouse is eating...");
+        System.out.println("Mouse is full-fed! And it's energy now is: " + energy + "%. Needs to sleep, to start growing a fat:)");
         isHungry = false;
         energy -= 90;
         incrementAge();
@@ -12,7 +12,7 @@ public class Pig extends Animal {
     }
 
     public void sleep() {
-        System.out.println("Pig is sleeping...");
+        System.out.println("Mouse is sleeping...");
         energy = 100;
         System.out.println("Energy is restored to  " + energy + "%");
         incrementAge();
