@@ -4,6 +4,7 @@ public abstract class Animal {
 
     private String name;
     private int age;
+    private AnimalType animalType;
     protected int energy;
     protected boolean isHungry;
 
@@ -28,6 +29,15 @@ public abstract class Animal {
     }
     public int getAge() {
         return this.age;
+    }
+
+    // ANIMAL TYPE
+    public void setAnimalType(AnimalType animalType) {
+        this.animalType = animalType;
+    }
+
+    public AnimalType getAnimalType() {
+        return animalType;
     }
 
     // isHungry status

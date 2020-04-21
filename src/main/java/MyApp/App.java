@@ -18,9 +18,6 @@ public class App {
         System.out.println("Give your pet a name:");
         userAnimal.setName(userInput.next());
 
-        //Choose a color
-        System.out.println("Which is your pet color? (White - w, Grey - g, Black - b):");
-
         // Animal is created + info messages for user (energy, isHungry)
         System.out.println("Your pet is a " + userAnimalString.toLowerCase() + " and it's name is " + userAnimal.getName());
         System.out.println("It has " + userAnimal.energy + "% energy and " + userAnimal.isHungryStatus());
