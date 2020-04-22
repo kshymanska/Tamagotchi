@@ -1,10 +1,9 @@
 package MyApp;
 
-public abstract class Animal {
+public abstract class Animal implements Play {
 
     private String name;
     private int age;
-    private AnimalType animalType;
     protected int energy;
     protected boolean isHungry;
 
@@ -31,16 +30,7 @@ public abstract class Animal {
         return this.age;
     }
 
-    // ANIMAL TYPE
-    public void setAnimalType(AnimalType animalType) {
-        this.animalType = animalType;
-    }
-
-    public AnimalType getAnimalType() {
-        return animalType;
-    }
-
-    // isHungry status
+    // HUNGRY STATUS
     public String isHungryStatus() {
         if (isHungry == true) {
             return "it's hungry.";
@@ -66,10 +56,10 @@ public abstract class Animal {
 
     }
 
-    // Check, should animal sleep or no
+    // ENERGY STATUS (Check, should animal sleep or no)
     public void energyStatus() {
         if (age < 5) {
-            if (energy <= 30) {
+            if (energy <= 10) {
                 System.out.println("Your pet energy is " + energy + "%. Let's sleep a bit? (Y/N):");
                 if (App.getAnswer().equals("Y")) {
                     sleep();
@@ -85,6 +75,7 @@ public abstract class Animal {
         }
     }
 
+    // ANIMAL DIE
     public void animalDie() {
         if (age == 5) {
             System.out.println(getName() + "is " + age + " years ols now." +
@@ -94,4 +85,5 @@ public abstract class Animal {
 
     public abstract void eat();
     public abstract void sleep();
+    public abstract void voice();
 }

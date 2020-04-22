@@ -12,7 +12,7 @@ public class App {
 
         // Choose an animal
         System.out.println("Choose a pet (Cat, Dog, Mouse, Rabbit):");
-        createAnimal(getAnimal());
+        createAnimal(userAnimal());
 
         // Choose a name
         System.out.println("Give your pet a name:");
@@ -27,7 +27,7 @@ public class App {
     }
 
     // Get user animal from console
-    public static String getAnimal() {
+    public static String userAnimal() {
         if(userInput.hasNext("Cat")
             || userInput.hasNext("Dog")
             || userInput.hasNext("Mouse")
@@ -36,7 +36,7 @@ public class App {
         } else {
             System.err.println("We don't have such an animal, please choose from the list:");
             userInput.next();
-            userAnimalString = getAnimal();
+            userAnimalString = userAnimal();
         }
         return userAnimalString;
     }
@@ -70,12 +70,13 @@ public class App {
 
     // Get user's choice about actions
     public static String getAction() {
-        System.out.println("Which action should we do? (Eat, sleep, walk, play):");
+        System.out.println("Which action should we do? (Eat, sleep, walk, play, voice):");
         String action;
         if(userInput.hasNext("Eat")
             || userInput.hasNext("Sleep")
             || userInput.hasNext("Walk")
-            || userInput.hasNext("Play")){
+            || userInput.hasNext("Play")
+            || userInput.hasNext("Voice")){
             action = userInput.next();
         } else {
             System.err.println("Your pet can't do such an action, please try again:");
@@ -92,6 +93,8 @@ public class App {
                 userAnimal.eat();
             } else if (action.equals("Sleep")) {
                 userAnimal.sleep();
+            } else if (action.equals("Voice")) {
+                userAnimal.voice();
             }
         } else {
             userAnimal.animalDie();
