@@ -1,6 +1,6 @@
 package MyApp;
 
-public abstract class Animal implements Play {
+public abstract class Animal implements Play, Walk {
 
     private String name;
     private int age;
@@ -29,6 +29,9 @@ public abstract class Animal implements Play {
     public int getAge() {
         return this.age;
     }
+    public String printAge() {
+        return getName() + " age is " + age;
+    }
 
     // HUNGRY STATUS
     public String isHungryStatus() {
@@ -41,7 +44,7 @@ public abstract class Animal implements Play {
 
     // Check, should we feed animal or now (if it's hungry)
     public void feedCheck() {
-        if (age < 5) {
+        if (age < 7) {
             if (isHungry == true) {
                 System.out.println("Let's feed your pet? (Y/N):");
                 if (App.getAnswer().equals("Y")) {
@@ -58,8 +61,8 @@ public abstract class Animal implements Play {
 
     // ENERGY STATUS (Check, should animal sleep or no)
     public void energyStatus() {
-        if (age < 5) {
-            if (energy <= 10) {
+        if (age < 7) {
+            if (energy <= 20) {
                 System.out.println("Your pet energy is " + energy + "%. Let's sleep a bit? (Y/N):");
                 if (App.getAnswer().equals("Y")) {
                     sleep();
@@ -77,7 +80,7 @@ public abstract class Animal implements Play {
 
     // ANIMAL DIE
     public void animalDie() {
-        if (age == 5) {
+        if (age == 7) {
             System.out.println(getName() + "is " + age + " years ols now." +
                 " It means that it's time to move to the sky. You can restart the app and create a new pet.");
         }

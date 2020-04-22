@@ -1,7 +1,8 @@
 package MyApp;
 
-public class Mouse extends Animal implements Play {
+public class Mouse extends Animal implements Play, Walk {
 
+    // EAT (cost 10 energy points)
     public void eat() {
         if (energy >= 10 && energy <= 100) {
             System.out.println("Mouse is eating...");
@@ -16,6 +17,7 @@ public class Mouse extends Animal implements Play {
         }
     }
 
+    // SLEEP (cost anything, restored energy to 100 points)
     public void sleep() {
         System.out.println("Mouse is sleeping...");
         energy = 100;
@@ -24,10 +26,14 @@ public class Mouse extends Animal implements Play {
         App.performAction(App.getAction());
     }
 
+    // VOICE (cost anything, just gives voice)
     public void voice() {
         System.out.println("Pi-pi-pi-pi");
+        incrementAge();
+        energyStatus();
     }
 
+    // PLAY (cost 40 energy points)
     public void play() {
         if (energy >= 40 && energy <= 100) {
             System.out.println("Ok " + getName() + ", let's play!");
@@ -40,4 +46,12 @@ public class Mouse extends Animal implements Play {
             energyStatus();
         }
     }
+
+    // WALK (cost anything)
+    public void walk() {
+        System.out.println("Mouses don't walk! They live all their life inside of the house");
+        incrementAge();
+        energyStatus();
+    }
+
 }
