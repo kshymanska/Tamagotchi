@@ -4,13 +4,15 @@ public abstract class Animal implements Play, Walk {
 
     private String name;
     private int age;
+    private final String ANIMAL_TYPE;
     protected int energy;
     protected boolean isHungry;
 
-    public Animal() {
+    public Animal(String type) {
         age = 0;
         energy = 100;
         isHungry = true;
+        this.ANIMAL_TYPE = type;
     }
 
     // NAME
@@ -30,63 +32,65 @@ public abstract class Animal implements Play, Walk {
         return this.age;
     }
     public String printAge() {
-        return getName() + " age is " + age;
-    }
-
-    // HUNGRY STATUS
-    public String isHungryStatus() {
-        if (isHungry == true) {
-            return "it's hungry.";
+        if (getAge() <= 1) {
+            return getName() + " is " + age + " year old now.";
         } else {
-            return "it's not hungry.";
+            return getName() + " is " + age + " years old now.";
         }
     }
 
-    // Check, should we feed animal or now (if it's hungry)
+    // ANIMAL TYPE
+    public String getUserAnimalType() {
+        return ANIMAL_TYPE;
+    }
+
+    // HUNGER CHECK
     public void feedCheck() {
         if (age < 7) {
-            if (isHungry == true) {
-                System.out.println("Let's feed your pet? (Y/N):");
-                if (App.getAnswer().equals("Y")) {
+            if (isHungry) {
+                System.out.println(getName() + " is hungry. Let's feed your pet? (Y/N):");
+                String answer = App.getAnswer();
+                if (answer.equals("Y") || answer.equals("y")) {
                     eat();
                 } else {
                     App.performAction(App.getAction());
                 }
+            } else {
+                App.performAction(App.getAction());
             }
-        } else {
-            animalDie();
         }
-
     }
 
-    // ENERGY STATUS (Check, should animal sleep or no)
+    // ENERGY CHECK
     public void energyStatus() {
         if (age < 7) {
             if (energy <= 20) {
                 System.out.println("Your pet energy is " + energy + "%. Let's sleep a bit? (Y/N):");
-                if (App.getAnswer().equals("Y")) {
+                String answer = App.getAnswer();
+                if (answer.equals("Y") || answer.equals("y")) {
                     sleep();
                 } else {
                     App.performAction(App.getAction());
                 }
             } else {
-                System.out.println("Your pet energy is " + energy + "%");
+                System.out.println("Your pet energy is " + energy + "%.");
                 App.performAction(App.getAction());
             }
-        } else {
-            animalDie();
         }
     }
 
     // ANIMAL DIE
     public void animalDie() {
         if (age == 7) {
-            System.out.println(getName() + "is " + age + " years ols now." +
-                " It means that it's time to move to the sky. You can restart the app and create a new pet.");
+            System.err.println(getName() + " became an old " + getUserAnimalType() +
+                ". It means that it's time to move to the sky. You can restart the app and create a new pet.");
         }
     }
 
+    // EAT
     public abstract void eat();
+    // SLEEP
     public abstract void sleep();
+    // VOICE
     public abstract void voice();
 }

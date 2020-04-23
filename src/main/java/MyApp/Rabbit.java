@@ -2,48 +2,62 @@ package MyApp;
 
 public class Rabbit extends Animal implements Play, Walk {
 
-    // EAT (cost 40 energy points)
+    public Rabbit(String type) {
+        super(type);
+    }
+
+    // EAT (cost anything)
     public void eat() {
-        if (energy >= 40 && energy <= 100) {
-            System.out.println("Rabbit is eating...");
-            System.out.println("Rabbit is full-fed! And it's energy now is: " + energy + "%. It's enough energy to jump a bit:)");
-            isHungry = false;
-            energy -= 40;
-            incrementAge();
+        System.out.println(getName() + " is eating...");
+        isHungry = false;
+        incrementAge();
+        if (getAge() < 7) {
             energyStatus();
         } else {
-            System.out.println("Not enough energy to eat!");
-            energyStatus();
+            animalDie();
         }
     }
 
-    // SLEEP (cost anything, restored energy to 100 points)
+    // SLEEP (cost anything, restores energy to 100 points)
     public void sleep() {
-        System.out.println("Rabbit is sleeping...");
+        System.out.println("Your rabbit " + getName() + " is sleeping...");
         energy = 100;
-        System.out.println("Energy is restored to " + energy + "%");
         incrementAge();
-        App.performAction(App.getAction());
+        System.out.println("Energy is restored to " + energy + "%. " + printAge());
+        if (getAge() < 7) {
+            App.performAction(App.getAction());
+        } else {
+            animalDie();
+        }
     }
 
     // VOICE (cost anything, just gives voice)
     public void voice() {
         System.out.println("Rabbit can't make a sound:(");
         incrementAge();
-        energyStatus();
+        System.out.println(printAge());
+        if (getAge() < 7) {
+            energyStatus();
+        } else {
+            animalDie();
+        }
     }
 
     // PLAY (cost 30 energy points)
     public void play() {
         if (energy >= 30 && energy <= 100) {
-            System.out.println("Ok " + getName() + ", let's play!");
-            System.out.println("Rabbit is playing with a wheel ...");
+            System.out.println(getName() + " is playing with a wheel ...");
             energy -= 30;
+            isHungry = true;
             incrementAge();
-            energyStatus();
+            System.out.println(printAge());
+            if (getAge() < 7) {
+                feedCheck();
+            } else {
+                animalDie();
+            }
         } else {
             System.out.println("Not enough energy to play!");
-            incrementAge();
             energyStatus();
         }
     }
@@ -54,7 +68,12 @@ public class Rabbit extends Animal implements Play, Walk {
             System.out.println(getName() + "is walking in the garden...");
             energy -= 20;
             incrementAge();
-            energyStatus();
+            System.out.println(printAge());
+            if (getAge() < 7) {
+                energyStatus();
+            } else {
+                animalDie();
+            }
         } else {
             System.out.println("Not enough energy to walk!");
             energyStatus();

@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class App {
 
     static Animal userAnimal; // User's animal, which will be used for all actions automatically
-    static String userAnimalString; // Used only to save the user's choice from console and create a needed animal object
     static Scanner userInput = new Scanner(System.in);
 
     // START OF MAIN METHOD
@@ -13,15 +12,15 @@ public class App {
 
         // Step 1 - Choose an animal
         System.out.println("Choose a pet (" + getTypesList() + "):");
-        createAnimal(userAnimal());
+        createAnimal(getUserAnimal());
 
         // Step 2 - Choose a name
         System.out.println("Give your pet a name:");
         userAnimal.setName(userInput.next());
 
-        // Step 3 - Animal is created + info messages for user (energy, isHungry)
-        System.out.println("Your pet is a " + userAnimalString.toLowerCase() + " and it's name is " + userAnimal.getName());
-        System.out.println("It has " + userAnimal.energy + "% energy and " + userAnimal.isHungryStatus());
+        // Step 3 - Animal is created + info messages for user
+        System.out.println("Your pet is a " + userAnimal.getUserAnimalType() + " and it's name is " + userAnimal.getName());
+        System.out.println(userAnimal.getName() + " has " + userAnimal.energy + "% energy.");
         System.out.println();
 
         userAnimal.feedCheck();
@@ -30,47 +29,52 @@ public class App {
 
     // PERSONAL METHODS
     // Get user animal from console
-    public static String userAnimal() {
-        if(userInput.hasNext("Cat")
-            || userInput.hasNext("Dog")
-            || userInput.hasNext("Mouse")
-            || userInput.hasNext("Rabbit")){
-            userAnimalString = userInput.next();
+    public static String getUserAnimal() {
+        String userAnimal;
+        if(userInput.hasNext("cat")
+                || userInput.hasNext("Cat")
+                || userInput.hasNext("dog")
+                || userInput.hasNext("Dog")
+                || userInput.hasNext("mouse")
+                || userInput.hasNext("Mouse")
+                || userInput.hasNext("rabbit")
+                || userInput.hasNext("Rabbit")){
+            userAnimal = userInput.next();
         } else {
             System.err.println("We don't have such an animal, please choose from the list:");
             userInput.next();
-            userAnimalString = userAnimal();
+            userAnimal = getUserAnimal();
         }
-        return userAnimalString;
+        return userAnimal;
     }
 
     // Create a needed object of animal according to the user's input animal
     public static void createAnimal(String animal) {
-        if (animal.equals("Cat")) {
-            userAnimal = new Cat();
-        } else if (animal.equals("Dog")) {
-            userAnimal = new Dog();
-        } else if (animal.equals("Mouse")) {
-            userAnimal = new Mouse();
-        } else if (animal.equals("Rabbit")) {
-            userAnimal = new Rabbit();
+        if (animal.equals("cat") || animal.equals("Cat")) {
+            userAnimal = new Cat(Type.CAT.name().toLowerCase());
+        } else if (animal.equals("dog") || animal.equals("Dog")) {
+            userAnimal = new Dog(Type.DOG.name().toLowerCase());
+        } else if (animal.equals("mouse") || animal.equals("Mouse")) {
+            userAnimal = new Mouse(Type.MOUSE.name().toLowerCase());
+        } else if (animal.equals("rabbit") || animal.equals("Rabbit")) {
+            userAnimal = new Rabbit(Type.RABBIT.name().toLowerCase());
         }
     }
 
     // Getting list of animals types (received from enum "Types")
     public static String getTypesList() {
-        String types = Type.CAT.name().toLowerCase() + ", " +
+        return Type.CAT.name().toLowerCase() + ", " +
             Type.DOG.name().toLowerCase() + ", " +
             Type.MOUSE.name().toLowerCase() + ", " +
             Type.RABBIT.name().toLowerCase();
-        return types;
     }
 
     // Get the user's answer from the console (Yes/No)
     public static String getAnswer() {
         String answer;
-    if (userInput.hasNext("Y")
-            || userInput.hasNext("N")) {
+        if (userInput.hasNext("Y") || userInput.hasNext("y")) {
+            answer = userInput.next();
+        } else if (userInput.hasNext("N") || userInput.hasNext("n")) {
             answer = userInput.next();
         } else {
             System.err.println("We don't understand you. Please answer yes (Y) or no (N):");
@@ -84,11 +88,30 @@ public class App {
     public static String getAction() {
         String action = "unknown";
         if (userAnimal.getAge() < 7) {
-            System.out.println("Which action should we do? (Eat, sleep, walk, play, voice):");
-            if (userInput.hasNext("Eat")
-                    || userInput.hasNext("Sleep")
-                    || userInput.hasNext("Walk")
-                    || userInput.hasNext("Play")
+            System.out.println("Which action should we do? (eat - e, sleep - s, walk - w, play - p, voice - v):");
+            if (userInput.hasNext("e")
+                    || userInput.hasNext("E")
+                    || userInput.hasNext("eat")
+                    || userInput.hasNext("Eat")) {
+                action = userInput.next();
+            } else if (userInput.hasNext("s")
+                    || userInput.hasNext("S")
+                    || userInput.hasNext("sleep")
+                    || userInput.hasNext("Sleep")) {
+                action = userInput.next();
+            } else if (userInput.hasNext("w")
+                    || userInput.hasNext("W")
+                    || userInput.hasNext("walk")
+                    || userInput.hasNext("Walk")) {
+                action = userInput.next();
+            } else if (userInput.hasNext("p")
+                    || userInput.hasNext("P")
+                    || userInput.hasNext("play")
+                    || userInput.hasNext("Play")) {
+                action = userInput.next();
+            } else if (userInput.hasNext("v")
+                    || userInput.hasNext("V")
+                    || userInput.hasNext("voice")
                     || userInput.hasNext("Voice")) {
                 action = userInput.next();
             } else {
@@ -104,15 +127,30 @@ public class App {
 
     // Perform user's choice action
     public static void performAction(String action) {
-        if (action.equals("Eat")) {
+        if (action.equals("e")
+            || action.equals("E")
+            || action.equals("eat")
+            || action.equals("Eat")) {
             userAnimal.eat();
-        } else if (action.equals("Sleep")) {
+        } else if (action.equals("s")
+            || action.equals("S")
+            || action.equals("sleep")
+            || action.equals("Sleep")) {
             userAnimal.sleep();
-        } else if (action.equals("Play")) {
+        } else if (action.equals("p")
+            || action.equals("P")
+            || action.equals("play")
+            || action.equals("Play")) {
             userAnimal.play();
-        } else if (action.equals("Voice")) {
+        } else if (action.equals("v")
+            || action.equals("V")
+            || action.equals("voice")
+            || action.equals("Voice")) {
             userAnimal.voice();
-        } else if (action.equals("Walk")) {
+        } else if (action.equals("w")
+            || action.equals("W")
+            || action.equals("walk")
+            || action.equals("Walk")) {
             userAnimal.walk();
         }
     }
